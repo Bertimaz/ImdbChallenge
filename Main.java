@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -17,15 +18,14 @@ public class Main {
 
 
       String top150Json= getJsonBody(uriTop150);
-      top150Json= getMoviesList(top150Json);
+      //top150Json= getMoviesList(top150Json); tried to remove header from Json unsuccessfully
       System.out.println(top150Json);
 
-        /* final var json= top150Json;
-        final var objectMapper = new ObjectMapper();
+      final var json= top150Json;
+      final var objectMapper = new ObjectMapper();
+      final var movies = objectMapper.readValue(json, new TypeReference<Movie>() {});
 
-        final var movies = objectMapper.readValue(json, new TypeReference<Movie>() {});
-
-        System.out.println(movies.getTitle());*/
+      System.out.println(movies.getTitle());
 
 
         }
@@ -59,19 +59,4 @@ public class Main {
         }
 
 
-       /*
-        https://imdb-api.com/en/API/Search/k_y8kogbt5/{Inception 2010}
-        OkHttpClient client = new OkHttpClient().newBuilder()
-
-                .build();
-
-        Request request = new Request.Builder()
-
-                .url("https://imdb-api.com/en/API/Title/k_1234567/tt1832382")
-
-                .method("GET", null)
-
-                .build();
-
-        Response response = client.newCall(request).execute();*/
     }
